@@ -1,0 +1,42 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test SetDynamicCalendar Modual</title>
+</head>
+<body>
+
+    <section>
+        <div class="Some-Form">
+            <form method="POST">
+                {# NAME INPUT #}
+                <div class="name-in">
+                    <label class="client-name-lb">NAME</label>
+                    <input type="text" id="user-name" name="user-name" placeholder="user-name" required>
+                </div>
+
+
+                {% include "full_cal_0.html" %}
+                <input  type="submit" 
+                        id="submit-button" 
+                        class="submit-button" 
+                        name="submit" 
+                        value="test-dynamic-calendar">
+            </form>
+
+        </div>
+    </section>
+
+    <script>
+        let disabledDates = ['2023-05-07', '2023-05-17', '2023-05-27', '2023-06-22'];
+        console.log("[HTML_SIDE]:", disabledDates);
+        add_disbaled_dates(disabledDates);
+        SetDynamicCalendar();
+        
+    </script>
+</body>
+</html>
+{% endblock %}

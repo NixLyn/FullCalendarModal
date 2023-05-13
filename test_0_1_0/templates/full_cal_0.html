@@ -1,4 +1,4 @@
-
+{% block content %}
 <!-- ___________________________________________ -->
 <!-- __________[ NixLyn-DatePicker ]____________ -->
 <!-- ___________________________________________ -->
@@ -17,11 +17,11 @@
 <!-- ___________________________________________ -->
 
 
-<html>
-<link rel="stylesheet" type="text/css" href="full_cal_0.css">
-<body>
+<!-- html>
+<body -->
 
-<section class="nix-date-lyn">
+<link rel="stylesheet" type="text/css" href="../static/css/full_cal_0.css">
+
     <div class="outter-frame">
         <!-- Selcted Date -->
         <div class="currently-selected">
@@ -42,7 +42,7 @@
                 <!-- Displaying Year -->
                 <div class="displaying-year">
                     <button>
-                        <h1 class="disp-year-value" id="currentYear">Year: [None Selected]</h1>
+                        <h1 class="disp-year-value" id="currentYear" value="this-year">Year: [None Selected]</h1>
                     </button>
                 </div>
                 <!-- Next -->
@@ -89,23 +89,23 @@
             <h2>|</h2>
             <div class="friday"    id="Friday"    ><h3>Fri</h3></div>
             <h2>|</h2>
-            <div class="saterday"  id="Saterday"    ><h3>Sat</h3></div>
+            <div class="saterday"  id="Saterday"  ><h3>Sat</h3></div>
         </div>
 
         <!-- Days Frame -->
         <div class="dates-frame">
-                    <!-- Week Two -->
-                    <div class="week-1">
-                        <div class="date-00"><p class="d-00" id="d00" value="">00</p></div>
-                        <div class="date-01"><p class="d-01" id="d01" value="">01</p></div>
-                        <div class="date-02"><p class="d-02" id="d02" value="">02</p></div>
-                        <div class="date-03"><p class="d-03" id="d03" value="">03</p></div>
-                        <div class="date-04"><p class="d-04" id="d04" value="">04</p></div>
-                        <div class="date-05"><p class="d-05" id="d05" value="">05</p></div>
-                        <div class="date-06"><p class="d-06" id="d06" value="">06</p></div>
+                    <!-- Week One -->
+                    <div class="week-1" id="week-1">
+                        <div class="date-00"><p class="d-00" id="d00" value="00">00</p></div>
+                        <div class="date-01"><p class="d-01" id="d01" value="01">01</p></div>
+                        <div class="date-02"><p class="d-02" id="d02" value="02">02</p></div>
+                        <div class="date-03"><p class="d-03" id="d03" value="03">03</p></div>
+                        <div class="date-04"><p class="d-04" id="d04" value="04">04</p></div>
+                        <div class="date-05"><p class="d-05" id="d05" value="05">05</p></div>
+                        <div class="date-06"><p class="d-06" id="d06" value="06">06</p></div>
 
                     </div>
-                    <!-- Week One -->
+                    <!-- Week Two -->
                     <div class="week-2">
                         <div class="date-07"><p class="d-07" id="d07" value="">07</p></div>
                         <div class="date-08"><p class="d-08" id="d08" value="">08</p></div>
@@ -148,15 +148,22 @@
                     </div>
         </div>
     </div>
-    <script type="text/javascript" src="full_cal_0.js"></script>
+    <div type="hidden" value="yyyy-mm-dd" style="display: none;">
+        <input id="dynamic-date" name="calendar" value="">
+    </div>
+    <!-- Always Double Check that this '../path/to/static/js/fc0.js' is correct -->
+    <script type="text/javascript" src="../static/js/full_cal_0.js">
+    </script>
+
+    <!-- script>
+        // To be Copied in relivant html file
+        let disabledDates = ['2023-05-07', '2023-05-17', '2023-05-27', '2023-06-22'];
+        console.log("[HTML_SIDE]:", disabledDates);
+        add_disbaled_dates(disabledDates);
+        SetDynamicCalendar();
+        
+    </script -->
 
 
 
-
-</section>
-<section class="base-down">
-    <div class="stretch">...</div>
-
-</section>
-</body>
-</html>
+{% endblock %}

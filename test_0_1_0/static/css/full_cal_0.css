@@ -62,8 +62,10 @@ body {
     background-repeat: no-repeat;
     /* Itself */
     background-color: var(--main-bg-c);
-    width: 60vw;
+    width: fit-content;
     height: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
     border-radius: 0.89rem;
 
     /* It's Elements */
@@ -142,7 +144,6 @@ body {
     height: 0; 
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-
     border-bottom: 5px solid blue;
 }
   
@@ -188,7 +189,6 @@ body {
     align-items: center;
     justify-content: space-around;
     height: fit-content;
-
 }
 
 .days-header div {
@@ -197,7 +197,6 @@ body {
 
 .dates-frame {
     /* Itself */
-
     width: 95%;
     height: 55%;
     border-radius: 0.5rem;
@@ -214,16 +213,19 @@ body {
 
 .dates-frame div {
     /* Itself */
-
     width:  100%;
     height: 100%;
-
 
     /* It's Elements */
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+
 }
 
 
@@ -234,5 +236,32 @@ body {
 
     /* Effects */
     cursor: pointer;
+}
 
+
+
+.dates-frame div div p{
+    /* Itself */
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(120deg, rgba(0, 255, 255, 0.132), rgba(0, 0, 255, 0.13));
+    border-radius: 3.15rem;
+}
+
+.dates-frame div div p:hover{
+    /* Effects */
+    border-radius: 2.15rem;
+    background-color: aquamarine;
+}
+
+.dates-frame div div:hover{
+    /* Effects */
+    border-radius: 1rem;
+    background-color: aquamarine;
+    transition: all 1s;
 }

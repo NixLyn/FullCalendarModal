@@ -1,0 +1,267 @@
+:root {
+    --main-bg-c: rgba(17, 206, 219, 0.8);
+    --days-bg-c: rgba(10, 225, 255, 0.75);
+    --none-days: rgba(17, 98, 219, 0.4);
+    --btn-enabled: rgba(2, 40, 90, 0.5);
+    --btn-disable: rgba(88, 88, 88, 0.65);
+    --date-opened: rgba(214, 214, 214, 0.7);
+    --date-closed: rgba(128, 128, 128, 0.9);
+}
+
+html {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+}
+
+body {
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 0 0 ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.nix-date-lyn {
+    height: 100vh;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 220;
+
+}
+
+.base-down {
+    left: 0;
+    height: 100vh;
+    width: 100%;
+
+}
+
+.stretch {
+    background-color: rgba(0, 255, 0, 0.212);
+    height: 100vh;
+    width: 100%;
+}
+
+
+.outter-frame {
+    background-position: center center;
+    background-repeat: no-repeat;
+    /* Itself */
+    background-color: var(--main-bg-c);
+    width: fit-content;
+    height: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 0.89rem;
+
+    /* It's Elements */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.currently-selected {
+    /* Itself */
+    width: 95%;
+    height: 15%;
+    border-radius: 0.5rem;
+
+
+    /* It's Elements */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.main-header {
+    /* Itself */
+    width: 95%;
+    height: 20%;
+    border-radius: 0.5rem;
+
+
+    /* It's Elements */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.year-header {
+    /* Itself */
+    width: 95%;
+    height: 50%;
+
+    /* It's Elements */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.month-header {
+    /* Itself */
+    width: 95%;
+    height: 50%;
+
+
+    /* It's Elements */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-header div div button {
+    /* Itself */
+    border: none;
+    background-color: rgba(0, 0, 255, 0);
+    border-radius: 1.15rem;
+
+    /* Effects */
+    cursor: pointer;
+    
+}
+
+
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid blue;
+}
+  
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+
+    border-top: 20px solid blue;
+}
+  
+.arrow-right {
+    width: 0; 
+    height: 0; 
+    border-top: 16.5px solid transparent;
+    border-bottom: 16.5px solid transparent;
+    
+    border-left: 16.5px solid blue;
+    border-radius: 0.35rem;
+}
+  
+.arrow-left {
+    width: 0; 
+    height: 0; 
+    border-top: 16.5px solid transparent;
+    border-bottom: 16.5px solid transparent; 
+    
+    border-right: 16.5px solid blue; 
+    border-radius: 0.35rem;
+}
+
+
+
+.days-header {
+    /* Itself */
+    width: 90%;
+    height: 10%;
+
+    /* It's Elements */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: fit-content;
+}
+
+.days-header div {
+    background-color: linear-gradient(120deg, rgba(0, 60, 255, 0.132), rgba(0, 102, 255, 0.13));
+}
+
+.dates-frame {
+    /* Itself */
+    width: 95%;
+    height: 55%;
+    border-radius: 0.5rem;
+    margin-bottom: 5%;
+
+    /* It's Elements */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    row-gap: 10px;
+}
+
+
+.dates-frame div {
+    /* Itself */
+    width:  100%;
+    height: 100%;
+
+    /* It's Elements */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+
+}
+
+
+.dates-frame div div {
+    /* Itself */
+    background: linear-gradient(120deg, rgba(0, 255, 255, 0.132), rgba(0, 0, 255, 0.13));
+    border-radius: 3.15rem;
+
+    /* Effects */
+    cursor: pointer;
+}
+
+
+
+.dates-frame div div p{
+    /* Itself */
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(120deg, rgba(0, 255, 255, 0.132), rgba(0, 0, 255, 0.13));
+    border-radius: 3.15rem;
+}
+
+.dates-frame div div p:hover{
+    /* Effects */
+    border-radius: 2.15rem;
+    background-color: aquamarine;
+}
+
+.dates-frame div div:hover{
+    /* Effects */
+    border-radius: 1rem;
+    background-color: aquamarine;
+    transition: all 1s;
+}

@@ -1,18 +1,123 @@
 console.log("Full_Cal::v-3.js Plugged-In");
-//let disabledDates = ['2023-05-07', '2023-05-17', '2023-05-27' ];
-//console.log("[TO_BE_DEACTIVATED]: ", disabledDates);
+/* Dynamic Calendar */
 
+    /* 
+        TODO:
+
+        ? Add Disabled Days Method
+        ? Add Disabled Dates Method
+        ? Integrate InTo Made Modual    
+    */
 
 
 // Set variables of HTML elements which we will be working with..
 // Headers:  Date-Selected, Year, Month, Week, Date, etc...
 
+let offDates = [];
+function add_disbaled_dates(dates_list){
+    if (dates_list){
+
+        console.log("[JS_SIDE]:[DatesList]: ", dates_list);
+        for (let y = 0; y < dates_list.length; y++){
+            let yy = dates_list[y].split("-")[0];
+            let mm = dates_list[y].split("-")[1];
+            let dd = dates_list[y].split("-")[2];
+            console.log("[YY]:", yy, "[MM]:", mm, "[DD]:", dd);
+            offDates.push(dates_list[y]);
+
+        }
+    }
+}
+
+
+
+/* ~~~~~~~~~~~~~~~~~~ */
 const setDate = document.getElementById("selected");
 const setDay = document.getElementById("set-day");
 const setMonth = document.getElementById("currentMonth");
 const setYear = document.getElementById("currentYear");
+/* ~~~~~~~~~~~~~~~~~~ */
 
 
+/* Set Elements Needed */
+let currentYear         = document.getElementById("currentYear");
+let currentMonth        = document.getElementById("currentMonth");
+/* ~~~~~~~~~~~~~~~~~~ */
+
+/* Set Base Variables */
+let selected            = null;
+let selected_date       = "YYYY-MM-DD";
+let is_set              = false;
+let set_year            = null;
+let set_month_name      = null;
+let set_month_num       = null;
+let set_week_day        = null;
+let set_date_num        = null;
+let final_date_set      = "yyyy-mm-dd";
+
+/* ~~~~~~~~~~~~~~~~~~ */
+
+let current_set         = [selected, selected_date, is_set];
+let yyyy_mm_dd          = [set_year, set_month_num, set_month_name, set_week_day, set_date_num];
+
+/* ~~~~~~~~~~~~~~~~~~ */
+
+let weekDays_Short = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+]
+
+let allMonths = [
+    "January",
+    "February", 
+    "March", 
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+]
+
+/* ~~~~~~~~~~~~~~~~~~ */
+
+/* User Defined Variables */
+//let disabledDates = null;
+
+//console.log("[TO_BE_DEACTIVATED]: ", disabledDates);
+
+
+/* Update SetVals */
+
+
+function UpdateSets(thatYear, thatMonthNum, thatMonthName, thatWeekDay, thatDate){
+    set_year                = thatYear;
+    set_month_num           = thatMonthNum;
+    set_month_name          = thatMonthName;
+    set_week_day            = thatWeekDay;
+    set_date_num            = thatDate;
+
+    let mm_n                = set_month_num;
+    let dd_n                = set_date_num;
+
+    if (mm_n < 10){mm_n = "0"+mm_n}
+    if (dd_n < 10){dd_n = "0"+dd_n}
+
+    final_date_set          = set_year+"-"+mm_n+"-"+dd_n
+
+    yyyy_mm_dd          = [set_year, set_month_num, set_month_name, set_week_day, set_date_num];
+    display_state();
+}
+
+/* ~~~~~~~~~~~~~~~~~~ */
 
 
 
@@ -98,81 +203,9 @@ class Day
 function isLeapYear(year){
     return year % 100 === 0 ? year % 400 === 0 : year % 4 === 0;
 }
-class Month
-{
-    constructor(date = null, lang = 'default')
-    {
-        const day           = new Day(null, lang);
-        const monthSize     = [31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30];
-        this.lang           = lang;
-
-        this.name           = day.month;
-        this.number         = day.monthNumber;
-        this.numberOfDays   = monthSize[this.number - 1];
-        this.year           = day.year;
-
-        if (this.number === 2){
-            this.numberOfDays += isLeapYear(day.year) ? 1 : 0;
-        }
-
-        this[Symbol.iterator]   = function* (){
-            let number          = 1;
-            yield this.getDay(number);
-            while(number < this.numberOfDays){
-                ++number;
-                yield this.getDay(number);
-            }
-        }
-    }
-    getDay(date){
-        console.log("[getDay]: ", this.number);
-        return new Day(new Date(this.year, this.number - 1, date), this.lang);
-    }
-
-}
-/* ^ PART - 2 ^ */
 
 
 
-
-/* v PART - 3 v */
-class Calendar
-{
-    weekDays = Array.from({length: 7});
-    constructor(year = null, monthNumber = null, lang='default'){
-        this.today  = new Day(null, lang);
-        this.year = year ?? this.today.year;
-        this.month = new Month(new Date(this.year, (monthNumber || this.today.monthNumber) -1), lang);
-        this.lang = lang;
-
-
-        this[Symbol.iterator] = function* (){
-            let number = 1;
-            yield this.getMonth(number);
-            while(number < 12){
-                ++number;
-                yield this.getMonth(number);
-            }
-        };
-
-        
-        this.weekDays.forEach((_, i) => {
-            const day = this.month.getDay(i);
-            if(!this.weekDays.includes(day.day)){
-                this.weekDays[day.dayNumber- 1] = day.day
-            }
-        });
-    }
-    isLeapYear(){
-        return isLeapYear(this.year);
-    }
-    getMonth(monthNum){
-        return new Month(new Date(this.year, monthNum -1), this.lang);
-    }
-
-}
-//
-/* ^ PART - 3 ^ */
 
 
 
@@ -180,72 +213,6 @@ class Calendar
 
 /* ---My Try--- */
 
-
-/* Dynamic Calendar */
-
-/* Set Elements Needed */
-let currentYear         = document.getElementById("currentYear");
-let currentMonth        = document.getElementById("currentMonth");
-
-/* Set Base Variables */
-let selected            = null;
-let selected_date       = "YYYY-MM-DD";
-let is_set              = false;
-let set_year            = null;
-let set_month_name      = null;
-let set_month_num       = null;
-let set_week_day        = null;
-let set_date_num        = null;
-let set_First_Week_Day  = null;
-let set_Month_Size      = null;
-let currentWeekDay      = null;
-
-
-let current_set         = [selected, selected_date, is_set];
-let yyyy_mm_dd          = [set_year, set_month_num, set_month_name, set_week_day, set_date_num];
-
-let weekDays_Short = [
-    "Sun",
-    "Mon",
-    "Tue",
-    "Wed",
-    "Thu",
-    "Fri",
-    "Sat"
-]
-
-let allMonths = [
-    "January",
-    "February", 
-    "March", 
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-]
-
-
-/* Update SetVals */
-
-
-function UpdateSets(thatYear, thatMonthNum, thatMonthName, thatWeekDay, thatDate){
-    set_year                = thatYear;
-    set_month_num           = thatMonthNum;
-    set_month_name          = thatMonthName;
-    set_week_day            = thatWeekDay;
-    set_date_num            = thatDate;
-
-    yyyy_mm_dd          = [set_year, set_month_num, set_month_name, set_week_day, set_date_num];
-
-    display_state();
-}
-
-/* ~~~~~~~~~~~~~~~~~~ */
 
 
 /* Year Header Nav's */
@@ -361,28 +328,24 @@ function getLastDayOfMonth(year, month) {
 
 function set_date_sel(d_id){
     //console.log("[D_ID]: [", d_id, "]");
+    // Dynamic EventListener..
     let d_listnr = document.getElementById(d_id);
-
 
     // ID being clicked..
     d_listnr.addEventListener("click", function() {
-        console.log("[CLICKED]::[", d_listnr.innerHTML, "]::[", d_listnr.innerText, "]");
-        console.log("[?-IS-SET]: ", is_set);
+        console.log("[CLICKED]::[", d_listnr.innerText, "]");
+
+        //console.log("[?-IS-SET]: ", is_set);
         // If Not 'Set_Date' -> 'Set_Date' -> 'Selected_Date':
         if (is_set == false){
-            console.log("[NEW_SET]: ");
+            //console.log("[NEW_SET]: ");
             // STYLE_NEW...
             d_listnr.style = "background: linear-gradient(120deg, rgba(0, 0, 255, 0.132), rgba(025, 0, 255, 0.83));";
             selected                = d_listnr;
-            if (d_listnr.innerText < 10){
-                selected_date           = "d0"+d_listnr.innerHTML;
-            }
-            else{
-                selected_date           = "d"+d_listnr.innerHTML;
-            }
+            if (d_listnr.innerText < 10){selected_date= "d0"+d_listnr.innerHTML;}
+            else{selected_date = "d"+d_listnr.innerHTML;}
             is_set                  = true;
             current_set             = [selected, selected_date, is_set];
-
 
             set_date_num            = d_listnr.innerText
             UpdateSets(set_year, set_month_num, set_month_name, set_week_day, set_date_num);
@@ -390,14 +353,12 @@ function set_date_sel(d_id){
             console.log(current_set);
             return;
         }
-
         // If Already Set : 
         if(is_set == true){
-            console.log("[UNSET_OLD]:[SET_NEW]:[FIX_CSS..]:");
-
+            //console.log("[UNSET_OLD]:[SET_NEW]:[FIX_CSS..]:");
             // If Selected Same 'Set_Date' -> 'UnSet_Date'
             if(selected_date == d_listnr.innerHTML){
-                console.log("[TO_UNSET]: ", selected, "::", selected_date);
+                //console.log("[TO_UNSET]: ", selected, "::", selected_date);
 
                 d_listnr.style  = "background: linear-gradient(120deg, rgba(0, 255, 255, 0.132), rgba(0, 0, 255, 0.13));";
                 is_set          = false;
@@ -405,15 +366,13 @@ function set_date_sel(d_id){
                 selected_date   = "YYYY-MM-DD";
                 current_set     = [selected, selected_date, is_set];
 
-                console.log(current_set);
-
                 UpdateSets(null, null, null, null, null);
                 return;
 
             }
             // If Selected !Same 'Set_Date' -> 'Replace_Date' 
             else{
-                console.log("[TO_UNSET]: ", selected, "::", selected_date);
+                //console.log("[TO_UNSET]: ", selected, "::", selected_date);
 
                 // STYLE NEW..
                 d_listnr.style  = "background: linear-gradient(120deg, rgba(0, 0, 255, 0.132), rgba(025, 0, 255, 0.83));";
@@ -421,18 +380,12 @@ function set_date_sel(d_id){
                 // UN_STYLE OLD...
                 let old_set     = document.getElementById(selected_date);
                 old_set.style   = "background: linear-gradient(120deg, rgba(0, 255, 255, 0.132), rgba(0, 0, 255, 0.13));";
-
                 selected        = d_listnr;
-                if (d_listnr.innerText < 10){
-                    selected_date           = "d0"+d_listnr.innerHTML;
-                }
-                else{
-                    selected_date           = "d"+d_listnr.innerHTML;
-                }   
+                if (d_listnr.innerText < 10){selected_date= "d0"+d_listnr.innerHTML;}
+                else{selected_date           = "d"+d_listnr.innerHTML;}
                 is_set          = true;
                 current_set     = [selected, selected_date, is_set];
-
-                console.log(current_set);
+                //console.log(current_set);
                 set_date_num            = d_listnr.innerText
                 UpdateSets(set_year, set_month_num, set_month_name, set_week_day, set_date_num);
                 return;
@@ -453,12 +406,10 @@ try{
     try{
     function theYear(){
         try{
-
             let date                = new Day();
             currentYear.innerText   = date.year;
             set_year                = date.year;
             console.log("[DATE]:[YEAR]: ",date.year);
-
         }
         catch{
             console.log("[Year_Not_Set]");
@@ -467,22 +418,13 @@ try{
     try{
     // Prev Year
         document.getElementById("prev-year").addEventListener("click", function(){
-            try{
-                DownYear();
-                }
-                catch{
-                    console.log("[Year_Not_Set]");
-                }
+            try{DownYear();}
+            catch{console.log("[Year_Not_Set]");}
         });
     // Next Year
         document.getElementById("next-year").addEventListener("click", function(){
-            try{
-                UpYear();
-
-                }
-                catch{
-                    console.log("[Year_Not_Set]");
-                }
+            try{UpYear();}
+            catch{console.log("[Year_Not_Set]");}
         });
     }
     catch{
@@ -558,27 +500,55 @@ try{
     }
 
 
+    // Is Day/Date of the Month
     function editDateOn(x_id, to_date){
-        console.log("[ThatWeekOn]::\n[ID]: ",x_id, "\n[ToDate]: ", to_date);
+        //console.log("[ThatWeekOn]::\n[ID]: ",x_id, "\n[ToDate]: ", to_date);
         document.getElementById(x_id).innerText = to_date;
     }
-
+    // Is NOT Day/Date of the Month
+    // ? Add Check For "DisabledDays && DisabledDates"
     function editDateOff(x_id){
-        console.log("[ThatWeekOff]::\n[ID]: ",x_id);
-        document.getElementById(x_id).innerText = "--";
-        document.getElementById(x_id).style.display = 'none';
+        try{
+            console.log("[ThatWeekOff]::\n[ID]: ",x_id);
+//            document.getElementById(x_id).innerText = "--";
+            document.getElementById(x_id).style.display = 'none';
+    
+        }
+        catch(err) {
+            console.log(err.message);
+
+        }
+
     }
 
 
     // Date-Grid-By-Week..
+    /* 
+        TODO:
+
+        ? Add Disabled Days Method
+        ? Add Disabled Dates Method
+        ? Integrate InTo Made Modual    
+    */
     function theWeekDays(firstDay, monthSize, weekNum){
         try{
             console.log("[CurrentWeekDay]: ", firstDay, "\n[MonthSize]: ", monthSize, "\n[WeekNum]: ", weekNum);
             for(let x = 0; x <= 34; x++){
                 let toDate = x - weekNum + 1;
-                console.log("[X]:",x);
+                //console.log("[X]:",x);
                 let thatWeekNum = weekNum;
-                if (x < thatWeekNum || x > monthSize){
+                let da_date = null;
+                let da_mont = null;
+
+                if (set_month_num < 10){da_mont = "0"+(set_month_num + 1)}
+                else{da_mont = set_month_num}
+                
+                if (toDate < 10){da_date = "0"+toDate}
+                else{da_date = toDate}
+                let prab_date = set_year+"-"+da_mont+"-"+da_date
+                //console.log("\n\n*:-----%--%-----:*\n*--", prab_date,"--*\n*:-----%--%-----:*\n");
+
+                if (x < thatWeekNum || x > monthSize || offDates.includes(prab_date)){
                     thatWeekNum+1;
                     if (x < 10){
                         let x_id = "d0"+x;
@@ -603,8 +573,8 @@ try{
 
             }
         }
-        catch{
-            console.log("[First-Day_Not_Set]");
+        catch(err){
+            console.log("[First-Day_Not_Set]", err.message);
         }
         
     }
@@ -612,16 +582,17 @@ try{
 
     // Date-Grid-By-Week..
     function theFirstDay(){
+        console.log("[WHAT'S]:[THE]:[PROBLEM]:???", set_year, set_month_num);
         try{
             // ✅ Get the first day of any month
-            const fday          = getFirstDayOfMonth(set_year, set_month_num+1);
+            let fday          = getFirstDayOfMonth(set_year, set_month_num+1);
             let fday_0          = fday.getDay();
 
             // Get First Week Day Of Month..
             let that_week_day = weekDays_Short[fday_0];
 
             // Get Size Of Month
-            const lday          = getLastDayOfMonth(set_year, set_month_num+1);
+            let lday          = getLastDayOfMonth(set_year, set_month_num+1);
             let lday_0          = lday.getDate();
 
             console.log("[F_DAY]: ", fday,"\n[F_DAY_0]:", that_week_day,"\n\n[L_DAY]:", lday,"\n[L_DAY_0]: ", lday_0);
@@ -645,8 +616,10 @@ catch{
     console.log("[Date_Vals_Not_Set]");
 }
 
+
 try{
     function set_id_vals(){
+        console.log("**[SETTING]:[ID_VALS]**");
         for (let d_val = 0; d_val <= 34; d_val++){
             if (d_val < 10){
                 let d_id = "d0"+d_val;
@@ -666,71 +639,43 @@ catch{
 
 
 
-try{
-    set_id_vals();
+function SetDynamicCalendar(){
     theYear();
     theMonth();
     theFirstDay();
+    set_id_vals();
 
 }
-catch{
-    console.log("[Mains]:[FAILURE]");
-}
+
+
 
 function display_state(){
     console.log(current_set);
     console.table(yyyy_mm_dd);
+    if (final_date_set){console.log(final_date_set);}
+    else{console.log("[DATE-NOT-SET]\n");}
 }
 
 
 
 
+function checkDates(prab_date){
+    for(let j = 0; j < offDates.length; j++){
+//        console.log("[TESTING-PRAB_DATE]");
 
+        if (prab_date == offDates[j]){
+            console.log("[true] ", prab_date, " == ", offDates[j]);
+            return true;
+        }
+        else{
+//            console.log("Nope...");
+            return false;
+        }
+    
 
-
-
-
-try{
-
-
-
-// DAY ...
-//console.log("[** Part - 1 **]");
-//console.log('[Day]: ');
-//const day = new Day(null, "en");
-//console.log(day.format("YYYY-MMN-DD"));
-//console.table(day);
-
-
-// MONTH ...
-//console.log("[** Part - 2 **]");
-//console.log('[Month]: ');
-//const month = new Month();
-//console.table(month);
-//console.log(month, ...month);
-
-//for(dayz of month){
-//    console.log("[dayOfMonth]: ", dayz.date);
-//}
-
-
-
-//console.log("[** Part - 3 **]");
-//console.log('[Calendar]: ');
-//const calendar = new Calendar();
-//console.table(calendar);
-//console.log(calendar, ...calendar);
-//
-//for(monthz of calendar){
-//    console.log(monthz);
-//}
-
-
-
+    }
 
 }
-catch{
-    console.log("MainClass-[FAILED]");
-}
+
 
 

@@ -234,8 +234,15 @@ let allMonths = [
 
 
 function UpdateSets(thatYear, thatMonthNum, thatMonthName, thatWeekDay, thatDate){
-    let yyyy_mm_dd          = [thatYear, thatMonthNum, thatMonthName, thatWeekDay, thatDate];
-    console.table(yyyy_mm_dd);
+    set_year                = thatYear;
+    set_month_num           = thatMonthNum;
+    set_month_name          = thatMonthName;
+    set_week_day            = thatWeekDay;
+    set_date_num            = thatDate;
+
+    yyyy_mm_dd          = [set_year, set_month_num, set_month_name, set_week_day, set_date_num];
+
+    display_state();
 }
 
 /* ~~~~~~~~~~~~~~~~~~ */
@@ -367,9 +374,14 @@ function set_date_sel(d_id){
             // STYLE_NEW...
             d_listnr.style = "background: linear-gradient(120deg, rgba(0, 0, 255, 0.132), rgba(025, 0, 255, 0.83));";
             selected                = d_listnr;
-            selected_date           = "d"+d_listnr.innerHTML;
+            if (d_listnr.innerText < 10){
+                selected_date           = "d0"+d_listnr.innerHTML;
+            }
+            else{
+                selected_date           = "d"+d_listnr.innerHTML;
+            }
             is_set                  = true;
-            current_set = [selected, selected_date, is_set];
+            current_set             = [selected, selected_date, is_set];
 
 
             set_date_num            = d_listnr.innerText
@@ -387,13 +399,15 @@ function set_date_sel(d_id){
             if(selected_date == d_listnr.innerHTML){
                 console.log("[TO_UNSET]: ", selected, "::", selected_date);
 
-                d_listnr.style = "background: linear-gradient(120deg, rgba(0, 255, 255, 0.132), rgba(0, 0, 255, 0.13));";
-                is_set = false;
-                selected = null;
-                selected_date = "YYYY-MM-DD";
-                current_set = [selected, selected_date, is_set];
+                d_listnr.style  = "background: linear-gradient(120deg, rgba(0, 255, 255, 0.132), rgba(0, 0, 255, 0.13));";
+                is_set          = false;
+                selected        = null;
+                selected_date   = "YYYY-MM-DD";
+                current_set     = [selected, selected_date, is_set];
 
                 console.log(current_set);
+
+                UpdateSets(null, null, null, null, null);
                 return;
 
             }
@@ -402,19 +416,25 @@ function set_date_sel(d_id){
                 console.log("[TO_UNSET]: ", selected, "::", selected_date);
 
                 // STYLE NEW..
-                d_listnr.style = "background: linear-gradient(120deg, rgba(0, 0, 255, 0.132), rgba(025, 0, 255, 0.83));";
+                d_listnr.style  = "background: linear-gradient(120deg, rgba(0, 0, 255, 0.132), rgba(025, 0, 255, 0.83));";
 
                 // UN_STYLE OLD...
-                let old_set = document.getElementById(selected_date);
-                old_set.style = "background: linear-gradient(120deg, rgba(0, 255, 255, 0.132), rgba(0, 0, 255, 0.13));";
+                let old_set     = document.getElementById(selected_date);
+                old_set.style   = "background: linear-gradient(120deg, rgba(0, 255, 255, 0.132), rgba(0, 0, 255, 0.13));";
 
-                selected = d_listnr;
-                selected_date = "d"+d_listnr.innerHTML;
-                is_set = true;
-                current_set = [selected, selected_date, is_set];
+                selected        = d_listnr;
+                if (d_listnr.innerText < 10){
+                    selected_date           = "d0"+d_listnr.innerHTML;
+                }
+                else{
+                    selected_date           = "d"+d_listnr.innerHTML;
+                }   
+                is_set          = true;
+                current_set     = [selected, selected_date, is_set];
 
                 console.log(current_set);
-
+                set_date_num            = d_listnr.innerText
+                UpdateSets(set_year, set_month_num, set_month_name, set_week_day, set_date_num);
                 return;
 
             }

@@ -504,13 +504,13 @@ try{
     function editDateOn(x_id, to_date){
         //console.log("[ThatWeekOn]::\n[ID]: ",x_id, "\n[ToDate]: ", to_date);
         document.getElementById(x_id).innerText = to_date;
+        document.getElementById(x_id).style.display = 'flex';
     }
     // Is NOT Day/Date of the Month
     // ? Add Check For "DisabledDays && DisabledDates"
     function editDateOff(x_id){
         try{
             console.log("[ThatWeekOff]::\n[ID]: ",x_id);
-//            document.getElementById(x_id).innerText = "--";
             document.getElementById(x_id).style.display = 'none';
     
         }
@@ -559,7 +559,7 @@ try{
                         editDateOff(x_id);
                     }
                 }
-                if (x >= thatWeekNum && x <= monthSize){
+                if (x >= thatWeekNum && x <= monthSize && !offDates.includes(prab_date)){
                     thatWeekNum+1;
                     if (x < 10){
                         let x_id = "d0"+x;
